@@ -53,6 +53,12 @@ public class combineLinks {
 				List <WebElement> targetEls = element.findElements(By.cssSelector(".v2-listing-card__info p"));
 				String description = targetEls.get(0).getText();
 				String currencyValue = element.findElements(By.cssSelector(".currency-value")).get(0).getText();
+			
+				currencyValue = currencyValue.replace(",", ".");
+				double	currencyValueN = Double.parseDouble(currencyValue);
+				currencyValueN= currencyValueN - 0.01;
+				currencyValue= Double.toString(currencyValueN);
+				
 				String id = element.getAttribute("data-palette-listing-id");			
 				ArrayList <String> urlShop = UrlShopMaker(fileReader.textCut(description), currencyValue);
 				System.out.println(urlShop);
@@ -115,7 +121,9 @@ public class combineLinks {
 		
 		   
 		 for(int i=0; i<tag.size(); ++i) {
-			 String mask="https://www.etsy.com/search?q=%1$s&min=%2$s&max=%2$s";
+		//	 String mask="https://www.etsy.com/search?q=%1$s&min=%2$s&max=%2$s&order=price_asc";
+				
+			 String mask="https://www.etsy.com/search?q=%1$s&min=%2$s&order=price_asc";
 			 urlShop.add(String.format(mask, tag.get(i), currencyValue)); 
 		 }
 		   

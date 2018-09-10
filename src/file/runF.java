@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,9 +21,9 @@ public class runF {
 //D:\\eclipse\\eclipse\\add\\geckodriver.exe  src\\add\\geckodriver.exe
 	public static WebDriver getWebDriver() {
 		//System.setProperty("webdriver.gecko.driver", "src\\add\\geckodriver.exe");
-	//	driver = new FirefoxDriver();
+		//driver = new FirefoxDriver();
 		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-			driver = new ChromeDriver();
+		driver = new ChromeDriver();
 		ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver driver) {
 				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
@@ -45,10 +47,18 @@ public class runF {
 			for (int u = 0; u < url.size(); ++u) {
 				driver.get(url.get(u));
 				waitForLoad(driver);
-
+				//Закрытие попапа уведомления о кукис
+				try {
+				driver.findElement(By.cssSelector(".display-flex-sm > div:nth-child(2) > button:nth-child(1)")).click();
+				Thread.sleep(wait);
+				} catch (ElementNotVisibleException e) {
+				//, ElementNotVisibleException e  ElementNotInteractableException e
+				}
+				
 				List<WebElement> list = driver
 						.findElements(By.cssSelector(".search-listings-group a[data-listing-id='" + id.get(i) + "']"));
 				int p = 1;
+			
 				while (list.size() == 0) {
 					try {
 						if (p < 11) {
@@ -56,9 +66,10 @@ public class runF {
 							driver.findElement(
 									By.xpath("//div//span[@class='ss-icon ss-navigateright icon-smaller-lg icon-t-1']"))
 									.click();
-							list = driver.findElements(
+									list = driver.findElements(
 									By.cssSelector(".search-listings-group a[data-listing-id='" + id.get(i) + "']"));
-							++p;
+						//	By.cssSelector(".search-listings-group a[data-palette-listing-id='" + id.get(i) + "']"));
+											++p;
 						} else {
 							break;
 						}
@@ -70,9 +81,12 @@ public class runF {
 				}
 
 				if (list.size() > 0) {
-					list.get(0).click();
+				//	System.out.println(list.get(0));
+					
 					waitForLoad(driver);
-					Thread.sleep(wait);
+				//	
+					list.get(0).click();
+				//	Thread.sleep(wait);
 				}
 
 			}
