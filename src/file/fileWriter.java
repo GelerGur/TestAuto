@@ -24,17 +24,7 @@ public class fileWriter {
 
 	 private static final String FILENAME = "Test.xml";
 	
-	public static void writerIn() throws Exception{
-		
-		FileWriter FileIO = new FileWriter ("TextFile.txt");
-		
-		FileIO.write("First word\nThe wold is myne\n");
-		
-		
-		FileIO.close();
-		System.out.println("File OK");
-	}
-	
+
 	/*
 	 *   */
 	public static void writerXML() throws Exception{
@@ -50,15 +40,7 @@ public class fileWriter {
             Element wait = document.createElement("wait");
             wait.setTextContent("1000");
             propertys.appendChild(wait);
- 
-            /*/ Определяем время задержки в мс
-            Attr sec = document.createAttribute("sec");
-            sec.setTextContent("1");
-            wait.setAttributeNode(sec);
- 
-            */// Еще можно сделать так
-            // staff.setAttribute("id", "1");
-             
+                         
             // Определяем ссылка link
             Element links = document.createElement("links");
            
@@ -81,10 +63,8 @@ public class fileWriter {
     
             
 	}
-	
+//Заполнение шапки документа	
 	public static Document setPropertys (Document document) throws Throwable{
-		
-		//Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument(); 
 		
 		Element propertys = document.createElement("propertys");
         document.appendChild(propertys);
@@ -97,10 +77,8 @@ public class fileWriter {
         return (document);
         
 	}
-	
+//Сохранение шапки документа	
 public static void setPropertysTrue (Document document) throws Throwable{
-		
-		//Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument(); 
 		
 		Element propertys = document.createElement("propertys");
         document.appendChild(propertys);
@@ -146,14 +124,10 @@ public static void setPropertysTrue (Document document) throws Throwable{
 		        
 		   for(int i=0; i < urlShop.size(); ++i) {
    	      	
-			 
-	           
-	        	Element link = document.createElement("link");
+	            Element link = document.createElement("link");
 	            link.setTextContent(urlShop.get(i));
 	            links.appendChild(link);
-	            
-	            
-	           
+	                      
 	        }
 		   
 		   return (document);

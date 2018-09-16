@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 //import org.openqa.selenium.firefox.FirefoxDriver;
@@ -18,17 +18,24 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class runF {
 
 	public static WebDriver driver;
-//D:\\eclipse\\eclipse\\add\\geckodriver.exe  src\\add\\geckodriver.exe
+	// Драйвера
+	// D:\\eclipse\\eclipse\\add\\geckodriver.exe src\\add\\geckodriver.exe
+
 	public static WebDriver getWebDriver() {
-		//System.setProperty("webdriver.gecko.driver", "src\\add\\geckodriver.exe");
-		//driver = new FirefoxDriver();
+		// FirefoxDriver
+		// System.setProperty("webdriver.gecko.driver", "src\\add\\geckodriver.exe");
+		// driver = new FirefoxDriver();
+
+		// ChromeDriver
 		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 		driver = new ChromeDriver();
+
 		ExpectedCondition<Boolean> pageLoadCondition = new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver driver) {
 				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
 			}
 		};
+
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(pageLoadCondition);
 		return (driver);
@@ -47,29 +54,29 @@ public class runF {
 			for (int u = 0; u < url.size(); ++u) {
 				driver.get(url.get(u));
 				waitForLoad(driver);
-				//Закрытие попапа уведомления о кукис
+				// Закрытие попапа уведомления о кукис
 				try {
-				driver.findElement(By.cssSelector(".display-flex-sm > div:nth-child(2) > button:nth-child(1)")).click();
-				Thread.sleep(wait);
+					Thread.sleep(wait);
+					driver.findElement(By.cssSelector("[class='width-full btn btn-outline btn-outline-black']"))
+							.click();
+
 				} catch (ElementNotVisibleException e) {
-				//, ElementNotVisibleException e  ElementNotInteractableException e
 				}
-				
-				List<WebElement> list = driver
-						.findElements(By.cssSelector(".search-listings-group a[data-listing-id='" + id.get(i) + "']"));
+
+				List<WebElement> list = driver.findElements(By.cssSelector("a[data-listing-id='" + id.get(i) + "']"));
 				int p = 1;
-			
+
+				// Поиск товара на текущей странице
 				while (list.size() == 0) {
 					try {
 						if (p < 11) {
-							System.out.println("Товара Id: "+id.get(i)+" URL: "+url.get(u) +" нет на странице № "+ p);
+							System.out.println(
+									"Товара Id: " + id.get(i) + " URL: " + url.get(u) + " нет на странице № " + p);
 							driver.findElement(
-									By.xpath("//div//span[@class='ss-icon ss-navigateright icon-smaller-lg icon-t-1']"))
+									By.cssSelector("[class='ss-icon ss-navigateright icon-smaller-lg icon-t-1']"))
 									.click();
-									list = driver.findElements(
-									By.cssSelector(".search-listings-group a[data-listing-id='" + id.get(i) + "']"));
-						//	By.cssSelector(".search-listings-group a[data-palette-listing-id='" + id.get(i) + "']"));
-											++p;
+							list = driver.findElements(By.cssSelector("[data-palette-listing-id='" + id.get(i) + "']"));
+							++p;
 						} else {
 							break;
 						}
@@ -77,16 +84,25 @@ public class runF {
 						System.out.println("Элимента нет на всех страницах");
 						break;
 
+					}  catch (WebDriverException e) {
+						System.out.println("Элимента нет на всех страницах");
+						break;
 					}
+					
+					
 				}
 
 				if (list.size() > 0) {
-				//	System.out.println(list.get(0));
-					
+
 					waitForLoad(driver);
-				//	
 					list.get(0).click();
-				//	Thread.sleep(wait);
+					Thread.sleep(wait);
+					// Переключение между вкладками
+					ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());// Получение списка табов
+					driver.switchTo().window(tabs2.get(1));// Переключение на второй таб в браузере
+					driver.close();
+					driver.switchTo().window(tabs2.get(0));// Переключение на первый таб в браузере
+
 				}
 
 			}
@@ -106,10 +122,5 @@ public class runF {
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(pageLoadCondition);
 	}
-
-	/// Метод проверяет наличие элемента на странице и возвращает true/false
-	/// (существует/не существует).
-	/// "iClassName" = By.Id("id"), By.CssSelector("selector") и т.д.
-	/// </summary>
 
 }
