@@ -5,16 +5,16 @@ import org.w3c.dom.Element;
 
 @SuppressWarnings("unused")
 
-public class main {
+public class Main {
 
    public static void main(String[] args) throws Throwable {
 	   
-	  fileWriter.setPropertysTrue(combineLinks.Doc());
+	  FileWriter.setPropertysTrue(CombineLinks.Doc());
 	   
-	   int cycle = Integer.parseInt(fileReader.getDoc().getDocumentElement().getAttribute("cycle"));
+	   int cycle = Integer.parseInt(FileReader.getDoc().getDocumentElement().getAttribute("cycle"));
 	   while (cycle>0) {
-	combineLinks.combine();
-	runF.run();
+	CombineLinks.combine();
+	RunF.run();
 	--cycle;
 	System.out.println("Осталось "+cycle+" круга"); 
 	   }

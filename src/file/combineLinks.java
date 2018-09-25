@@ -22,7 +22,7 @@ import org.w3c.dom.Document;
  * @author GelerGur
  *
  */
-public class combineLinks {
+public class CombineLinks {
 	 public static WebDriver driver;
 	/**
 	 * @throws Throwable 
@@ -35,15 +35,15 @@ public class combineLinks {
 	public static void combine() throws Throwable {
 	
 		Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument(); 		
-		fileWriter.setPropertys(document);
+		FileWriter.setPropertys(document);
 		
 		
 		//проверка на установленый флаг
-		if(fileReader.prepare()==true) {
-			fileWriter.setPropertys(Doc());
+		if(FileReader.prepare()==true) {
+			FileWriter.setPropertys(Doc());
 			//Открытие магазина по ссылке из файла
-			driver=runF.getWebDriver();
-			driver.get(fileReader.getDoc().getDocumentElement().getAttribute("shop"));
+			driver=RunF.getWebDriver();
+			driver.get(FileReader.getDoc().getDocumentElement().getAttribute("shop"));
 			List <WebElement> list = driver.findElements(By.cssSelector("[data-palette-listing-id]"));
 			Iterator <WebElement> iterator = list.iterator();
 			//Цикл формирования ссылок поиска товаров.  currency-value
@@ -60,12 +60,12 @@ public class combineLinks {
 				currencyValue= Double.toString(currencyValueN);
 				
 				String id = element.getAttribute("data-palette-listing-id");			
-				ArrayList <String> urlShop = UrlShopMaker(fileReader.textCut(description), currencyValue);
+				ArrayList <String> urlShop = UrlShopMaker(FileReader.textCut(description), currencyValue);
 				System.out.println(urlShop);
 				System.out.println("id: " + id);
-				fileWriter.setUrl(urlShop, document, id);
+				FileWriter.setUrl(urlShop, document, id);
 			}
-			fileWriter.saveDoc(document);
+			FileWriter.saveDoc(document);
 			driver.close();
 		}
 		else {

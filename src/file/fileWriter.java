@@ -1,26 +1,19 @@
 package file;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-public class fileWriter {
+
+public class FileWriter {
 
 	 private static final String FILENAME = "Test.xml";
 	
@@ -71,9 +64,9 @@ public class fileWriter {
 		
        
         propertys.setAttribute("prepareProducts", "false"); //false
-        propertys.setAttribute("shop",fileReader.getDoc().getDocumentElement().getAttribute("shop"));
-        propertys.setAttribute("wait", fileReader.getDoc().getDocumentElement().getAttribute("wait"));
-        propertys.setAttribute("cycle", fileReader.getDoc().getDocumentElement().getAttribute("cycle"));
+        propertys.setAttribute("shop",FileReader.getDoc().getDocumentElement().getAttribute("shop"));
+        propertys.setAttribute("wait", FileReader.getDoc().getDocumentElement().getAttribute("wait"));
+        propertys.setAttribute("cycle", FileReader.getDoc().getDocumentElement().getAttribute("cycle"));
         return (document);
         
 	}
@@ -85,9 +78,9 @@ public static void setPropertysTrue (Document document) throws Throwable{
 		
        
         propertys.setAttribute("prepareProducts", "true"); //false
-        propertys.setAttribute("shop",fileReader.getDoc().getDocumentElement().getAttribute("shop"));
-        propertys.setAttribute("wait", fileReader.getDoc().getDocumentElement().getAttribute("wait"));
-        propertys.setAttribute("cycle", fileReader.getDoc().getDocumentElement().getAttribute("cycle"));
+        propertys.setAttribute("shop",FileReader.getDoc().getDocumentElement().getAttribute("shop"));
+        propertys.setAttribute("wait", FileReader.getDoc().getDocumentElement().getAttribute("wait"));
+        propertys.setAttribute("cycle", FileReader.getDoc().getDocumentElement().getAttribute("cycle"));
         
         saveDoc(document);
         

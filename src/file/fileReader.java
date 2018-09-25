@@ -12,31 +12,19 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class fileReader {
+public class FileReader {
 
 	
-	//Чтение текста с файла
-	public static void readerIo() throws Exception {		
-		FileReader readIo = new FileReader ("TextFile.txt");			
-		int c;
-        while((c=readIo.read())!=-1){             
-            System.out.print((char)c);
-        }         
-		readIo.close();
-	}
+
 	
 	
 	
-	//Чтение с xml файла взято тут:
-	//https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
-	//https://javaswing.wordpress.com/2010/03/14/java_dom_xml/
+	//Чтение с xml файла 
 public static void xmlReder() throws Exception {
 	
-	//	System.out.println(getDoc().getDocumentElement().getNodeName());
+	
 		NodeList nList = getDoc().getElementsByTagName("links");
-     //   System.out.println("----------------------------");
-        
-       
+     
         
         for (int temp = 0; temp < nList.getLength(); temp++) {
            Node nNode = nList.item(temp);

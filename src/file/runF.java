@@ -15,7 +15,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class runF {
+public class RunF {
 
 	public static WebDriver driver;
 	// ִנאיגונא
@@ -42,13 +42,13 @@ public class runF {
 	}
 
 	public static void run() throws Throwable {
-		ArrayList<String> id = fileReader.getId();
+		ArrayList<String> id = FileReader.getId();
 		getWebDriver();
-		int wait = Integer.parseInt(fileReader.getDoc().getDocumentElement().getAttribute("wait"));
+		int wait = Integer.parseInt(FileReader.getDoc().getDocumentElement().getAttribute("wait"));
 
 		for (int i = 0; i < id.size(); ++i) {
 
-			ArrayList<String> url = fileReader.getUrlsId(i);
+			ArrayList<String> url = FileReader.getUrlsId(i);
 			System.out.println(url);
 			System.out.println(i + 1);
 			for (int u = 0; u < url.size(); ++u) {
